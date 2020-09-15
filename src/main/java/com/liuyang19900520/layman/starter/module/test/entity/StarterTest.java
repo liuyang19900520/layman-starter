@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,11 +15,12 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Max Liu
- * @since 2020-09-11
+ * @since 2020-09-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("starter_test")
+@ApiModel(value="StarterTest对象", description="测试用")
 public class StarterTest implements Serializable {
 
     private static final long serialVersionUID = 1L;

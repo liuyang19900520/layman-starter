@@ -60,7 +60,6 @@ public class MyBatisPlusGenerator {
         globalConfig.setOutputDir(projectPath + "/src/main/java");
         globalConfig.setAuthor("Max Liu");
         globalConfig.setOpen(false);
-        globalConfig.setSwagger2(false);
         globalConfig.setBaseResultMap(true);
         globalConfig.setFileOverride(true);
         globalConfig.setDateType(DateType.ONLY_DATE);
@@ -70,6 +69,7 @@ public class MyBatisPlusGenerator {
         globalConfig.setServiceName("%sService");
         globalConfig.setServiceImplName("%sServiceImpl");
         globalConfig.setControllerName("%sController");
+        globalConfig.setSwagger2(true);
         return globalConfig;
     }
 
