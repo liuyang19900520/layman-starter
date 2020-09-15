@@ -24,21 +24,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/test/starterTest")
 @Api(tags = "用户管理相关接口")
-
 public class StarterTestController {
     @Autowired
     StarterTestService starterTestService;
 
     @GetMapping("/users")
     @ApiOperation("显示用户一览")
-    public CommonResult users() {
+    public CommonResult<List<StarterTest>> users() {
         return CommonResult.success(starterTestService.list());
     }
 
     @GetMapping("/users/{id}")
     @ApiOperation("显示当前用户")
 
-    public CommonResult user(@PathVariable Long id) {
+    public CommonResult<StarterTest> user(@PathVariable Long id) {
         return CommonResult.success(starterTestService.getById(id));
     }
 
