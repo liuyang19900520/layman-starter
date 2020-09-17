@@ -1,5 +1,6 @@
 package com.liuyang19900520.layman.starter.module.test.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,6 +34,11 @@ public class StarterTest implements Serializable {
     private Integer age;
 
     private String email;
+    @TableField(exist = false)
+    private Test test;
+
+    @TableField(exist = false)
+    private StarterTest test2;
 
 
 }
