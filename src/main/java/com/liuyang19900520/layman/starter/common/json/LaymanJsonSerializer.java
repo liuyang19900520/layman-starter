@@ -4,8 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJson;
 
 import java.io.IOException;
@@ -19,8 +21,8 @@ import java.text.DecimalFormat;
  */
 public class LaymanJsonSerializer {
 
-    JsonObjectMapper mapper = new JsonObjectMapper();
-    JacksonJsonFilter jacksonFilter = new JacksonJsonFilter();
+    ObjectMapper mapper = new ObjectMapper();
+    LaymanJacksonJsonFilter jacksonFilter = new LaymanJacksonJsonFilter();
 
     /**
      * @param clazz   target type
@@ -44,12 +46,12 @@ public class LaymanJsonSerializer {
         mapper.setFilterProvider(jacksonFilter);
         //long 2 String
         SimpleModule simpleModule = new SimpleModule();
-//        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Float.class, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Float.TYPE, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Double.class, CustomDoubleSerialize.getInstance());
-//        simpleModule.addSerializer(Double.TYPE, CustomDoubleSerialize.getInstance());
+        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+        simpleModule.addSerializer(Float.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Float.TYPE, ToStringSerializer.instance);
+        simpleModule.addSerializer(Double.class, CustomDoubleSerialize.getInstance());
+        simpleModule.addSerializer(Double.TYPE, CustomDoubleSerialize.getInstance());
         mapper.registerModule(simpleModule);
         return mapper.writeValueAsString(object);
     }

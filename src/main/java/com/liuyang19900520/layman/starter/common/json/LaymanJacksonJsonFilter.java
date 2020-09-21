@@ -20,8 +20,8 @@ import java.util.Set;
  * @author Max Liu
  */
 
-@JsonFilter("JacksonFilter")
-public class JacksonJsonFilter extends FilterProvider {
+@JsonFilter("laymanJacksonFilter")
+public class LaymanJacksonJsonFilter extends FilterProvider {
 
     Map<Class<?>, Set<String>> includeMap = MapUtil.newHashMap();
     Map<Class<?>, Set<String>> filterMap = MapUtil.newHashMap();
