@@ -7,6 +7,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
@@ -61,6 +62,7 @@ public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler 
             }
         });
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("utf8");
         String json = jsonSerializer.toJson(returnValue);
         response.getWriter().write(json);
         response.getWriter().close();

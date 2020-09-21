@@ -40,7 +40,7 @@ public class StarterTestController {
 
     @GetMapping("/users/{id}")
     @ApiOperation("显示当前用户")
-    @LaymanJsons({@LaymanJson(type = Test.class, include = "age,name"), @LaymanJson(type = StarterTest.class, include = "id,username,test")})
+    @LaymanJsons({@LaymanJson(type = Test.class, filter = "age"), @LaymanJson(type = StarterTest.class, include = "id,username,test")})
     public CommonResult<StarterTest> user(@PathVariable Long id) {
         StarterTest byId = starterTestService.getById(id);
         Test test = new Test();
