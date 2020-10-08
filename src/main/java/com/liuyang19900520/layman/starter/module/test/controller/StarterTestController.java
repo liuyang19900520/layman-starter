@@ -4,6 +4,7 @@ package com.liuyang19900520.layman.starter.module.test.controller;
 import com.liuyang19900520.layman.starter.common.api.CommonResult;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJson;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJsons;
+import com.liuyang19900520.layman.starter.exception.BizException;
 import com.liuyang19900520.layman.starter.module.test.entity.StarterTest;
 import com.liuyang19900520.layman.starter.module.test.entity.Test;
 import com.liuyang19900520.layman.starter.module.test.service.StarterTestService;
@@ -35,7 +36,7 @@ public class StarterTestController {
     @GetMapping("/users")
     @ApiOperation("显示用户一览")
     public CommonResult<List<StarterTest>> users() {
-        return CommonResult.success(starterTestService.list());
+         throw new BizException("123","123");
     }
 
     @GetMapping("/users/{id}")
