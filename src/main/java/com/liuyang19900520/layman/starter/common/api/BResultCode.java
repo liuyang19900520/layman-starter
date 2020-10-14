@@ -2,21 +2,21 @@ package com.liuyang19900520.layman.starter.common.api;
 
 /**
  * <p>
- *
+ * 系统端错误
  * </p>
  *
  * @author Max Liu
  * @since 2020/09/15
  */
-public enum ResultCode implements IResultCode {
+public enum BResultCode implements IResultCode {
 
 
-    OK("00000", "无错误");
+    COMMON_B_ERROR("B0001", "系统之星出错");
 
     private final String code;
     private final String message;
 
-    private ResultCode(String code, String message) {
+    private BResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

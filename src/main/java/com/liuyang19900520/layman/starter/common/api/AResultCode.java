@@ -2,21 +2,21 @@ package com.liuyang19900520.layman.starter.common.api;
 
 /**
  * <p>
- *
+ * 用户端错误
  * </p>
  *
  * @author Max Liu
  * @since 2020/09/15
  */
-public enum ResultCode implements IResultCode {
+public enum AResultCode implements IResultCode {
 
 
-    OK("00000", "无错误");
+    COMMON_A_ERROR("A0001", "用户端错误");
 
     private final String code;
     private final String message;
 
-    private ResultCode(String code, String message) {
+    private AResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

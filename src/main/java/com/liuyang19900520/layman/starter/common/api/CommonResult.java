@@ -21,9 +21,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class CommonResult<T> {
-    private long code;
+    private String code;
     private String message;
     private T data;
+    private T errors;
 
     /**
      * 成功返回结果
@@ -31,17 +32,17 @@ public class CommonResult<T> {
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new CommonResult<T>(ResultCode.OK.getCode(), ResultCode.OK.getMessage(), data, null);
     }
 
 
     /**
      * 失败返回结果
      *
-     * @param data 获取的数据
+     * @param errors 获取的数据
      */
-    public static <T> CommonResult<T> failed(ResultCode resultCode, T data) {
-        return new CommonResult<T>(resultCode.getCode(), resultCode.getMessage(), data);
+    public static <T> CommonResult<T> failed(IResultCode resultCode, T errors) {
+        return new CommonResult<T>(resultCode.getCode(), resultCode.getMessage(), null, errors);
     }
 
 }

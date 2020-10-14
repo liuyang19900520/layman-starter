@@ -1,7 +1,11 @@
 package com.liuyang19900520.layman.starter.exception;
 
+import com.liuyang19900520.layman.starter.common.api.IResultCode;
+import com.liuyang19900520.layman.starter.common.api.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,16 +17,11 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class BizException extends RuntimeException{
+public class BizException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 错误码
-     */
-    protected String errorCode;
-    /**
-     * 错误信息
-     */
-    protected String errorMsg;
+    private IResultCode resultCode;
+
+    private Error error;
 
 }
