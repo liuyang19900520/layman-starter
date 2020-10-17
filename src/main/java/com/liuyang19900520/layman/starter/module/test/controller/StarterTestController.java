@@ -3,20 +3,15 @@ package com.liuyang19900520.layman.starter.module.test.controller;
 
 import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.CommonResult;
-import com.liuyang19900520.layman.starter.common.api.ResultCode;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJson;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJsons;
 import com.liuyang19900520.layman.starter.exception.BizException;
-import com.liuyang19900520.layman.starter.exception.Error;
 import com.liuyang19900520.layman.starter.module.test.entity.StarterTest;
 import com.liuyang19900520.layman.starter.module.test.entity.Test;
 import com.liuyang19900520.layman.starter.module.test.service.StarterTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +34,7 @@ public class StarterTestController {
     @GetMapping("/users")
     @ApiOperation("显示用户一览")
     public CommonResult<List<StarterTest>> users() {
-        throw new BizException(AResultCode.COMMON_A_ERROR, null);
+        throw new BizException(AResultCode.COMMON_A_ERROR, "test");
     }
 
     @GetMapping("/users/{id}")
@@ -52,6 +47,7 @@ public class StarterTestController {
         test.setAge("2323");
         test.setName(null);
         byId.setTest(test);
+        int i = 1 / 0;
         return CommonResult.success(byId);
     }
 

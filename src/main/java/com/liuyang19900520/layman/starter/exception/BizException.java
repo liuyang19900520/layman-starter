@@ -1,11 +1,8 @@
 package com.liuyang19900520.layman.starter.exception;
 
 import com.liuyang19900520.layman.starter.common.api.IResultCode;
-import com.liuyang19900520.layman.starter.common.api.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * <p>
@@ -22,6 +19,6 @@ public class BizException extends RuntimeException {
 
     private IResultCode resultCode;
 
-    private Error error;
+    private String message;
 
 }
