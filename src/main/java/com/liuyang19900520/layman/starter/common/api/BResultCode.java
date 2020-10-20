@@ -11,7 +11,7 @@ package com.liuyang19900520.layman.starter.common.api;
 public enum BResultCode implements IResultCode {
 
 
-    COMMON_B_ERROR("B0001", "系统之星出错");
+    COMMON_B_ERROR("B0001", "系统内部出错");
 
     private final String code;
     private final String message;
