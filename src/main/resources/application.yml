@@ -10,3 +10,5 @@ mybatis-plus:
     - classpath*:/com/**/mapper/*.xml
 
 
+log:
+  path: _app_logs
