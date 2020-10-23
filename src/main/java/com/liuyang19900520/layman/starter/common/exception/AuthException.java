@@ -1,4 +1,4 @@
-package com.liuyang19900520.layman.starter.exception;
+package com.liuyang19900520.layman.starter.common.exception;
 
 import com.liuyang19900520.layman.starter.common.api.IResultCode;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class BizException extends RuntimeException {
+public class AuthException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     private IResultCode resultCode;

@@ -1,8 +1,10 @@
 package com.liuyang19900520.layman.starter.common.logger.database.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
 import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_error_log")
-@ApiModel(value="SysErrorLog对象", description="错误日志")
+@ApiModel(value = "SysErrorLog对象", description = "错误日志")
 public class SysErrorLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

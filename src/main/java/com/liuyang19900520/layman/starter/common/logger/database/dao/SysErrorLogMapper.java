@@ -3,6 +3,7 @@ package com.liuyang19900520.layman.starter.common.logger.database.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.liuyang19900520.layman.starter.common.logger.database.entity.SysErrorLog;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

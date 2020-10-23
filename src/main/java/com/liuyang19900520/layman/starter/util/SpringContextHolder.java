@@ -3,6 +3,7 @@ package com.liuyang19900520.layman.starter.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -10,18 +11,18 @@ import org.springframework.context.ApplicationContextAware;
  * </p>
  *
  * @author Max Liu
- * @since 2020/10/21
+ * @since 2020/10/23
  */
-public class SpringContextUtils implements ApplicationContextAware {
-
+@Component
+public class SpringContextHolder implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 
-    public SpringContextUtils() {
+    public SpringContextHolder() {
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContextUtils.applicationContext = applicationContext;
+        SpringContextHolder.applicationContext = applicationContext;
     }
 
     public static ApplicationContext getApplicationContext() {
@@ -45,3 +46,4 @@ public class SpringContextUtils implements ApplicationContextAware {
         }
     }
 }
+

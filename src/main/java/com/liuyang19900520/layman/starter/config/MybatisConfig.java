@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2020/09/11
  */
 @Configuration
-@MapperScan("com.liuyang19900520.layman.starter.module.**.dao")
+@MapperScan({"com.liuyang19900520.layman.starter.module.**.dao",
+        "com.liuyang19900520.layman.starter.common.logger.database.dao"})
 public class MybatisConfig {
 }
