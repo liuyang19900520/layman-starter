@@ -46,3 +46,9 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+
+def profileName = System.getProperty("profile") ?: "local"
+processResources {
+    filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profileName: profileName]
+}

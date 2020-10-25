@@ -1,8 +1,6 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/layman_starter?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Tokyo
-    username: root
-    password: 12345678
+  profiles:
+    active: @profileName@
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
@@ -13,7 +11,4 @@ mybatis-plus:
   mapper-locations:
     - classpath*:/com/**/mapper/*.xml
 
-
-log:
-  path: _app_logs
 

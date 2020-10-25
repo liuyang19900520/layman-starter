@@ -11,6 +11,7 @@ import com.liuyang19900520.layman.starter.module.test.entity.StarterTest;
 import com.liuyang19900520.layman.starter.module.test.service.StarterTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/test/starterTest")
 @Api(tags = "用户管理相关接口")
+@Slf4j
 public class StarterTestController {
     @Autowired
     StarterTestService starterTestService;
@@ -34,6 +36,10 @@ public class StarterTestController {
     @GetMapping("/users")
     @ApiOperation("显示用户一览")
     public CommonResult<List<StarterTest>> users() {
+        log.error("test error");
+        log.warn("test warn");
+        log.info("test info");
+        log.debug("test debug");
         return null;
     }
 
