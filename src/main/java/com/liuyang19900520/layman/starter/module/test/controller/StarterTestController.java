@@ -40,6 +40,9 @@ public class StarterTestController {
         log.warn("test warn");
         log.info("test info");
         log.debug("test debug");
+
+
+
         return null;
     }
 

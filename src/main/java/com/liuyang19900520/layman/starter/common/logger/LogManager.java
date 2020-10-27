@@ -1,23 +1,10 @@
-/**
- * Copyright 2018-2020 stylefeng & fengshuonan (https://gitee.com/stylefeng)
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.liuyang19900520.layman.starter.common.logger;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 日志管理器
@@ -27,14 +14,20 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogManager {
 
-    //日志记录操作延时
-    private final int OPERATE_DELAY_TIME = 10;
+    /**
+     * 异步操作记录日志的线程池
+     */
+    private final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10, new ThreadFactory() {
+        private final AtomicInteger atoInteger = new AtomicInteger(0);
 
-    //异步操作记录日志的线程池
-    private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10);
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(r);
+            t.setName("Logger-Thread " + atoInteger.getAndIncrement());
+            return t;
+        }
+    });
 
-    private LogManager() {
-    }
 
     public static LogManager logManager = new LogManager();
 
@@ -42,7 +35,12 @@ public class LogManager {
         return logManager;
     }
 
+    /**
+     * 执行日志任务
+     *
+     * @param task 执行日志任务
+     */
     public void executeLog(TimerTask task) {
-        executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
+        executor.schedule(task, 10, TimeUnit.MILLISECONDS);
     }
 }

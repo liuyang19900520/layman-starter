@@ -5,16 +5,13 @@ import com.liuyang19900520.layman.starter.common.logger.database.entity.SysError
 import com.liuyang19900520.layman.starter.common.logger.database.service.SysErrorLogService;
 import com.liuyang19900520.layman.starter.util.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 
 import java.util.TimerTask;
-import java.util.logging.LogManager;
 
 /**
  * <p>
- *
+ * 日志任务工厂
  * </p>
  *
  * @author Max Liu
@@ -24,7 +21,7 @@ import java.util.logging.LogManager;
 @Slf4j
 public class LogTaskFactory {
 
-    private static SysErrorLogService sysErrorLogService = SpringContextHolder.getBean(SysErrorLogService.class);
+    private final static SysErrorLogService sysErrorLogService = SpringContextHolder.getBean(SysErrorLogService.class);
 
     public static TimerTask exceptionLog(final Long userId, final IResultCode resultCode,
                                          final String clazzName, final String methodName,
@@ -35,11 +32,8 @@ public class LogTaskFactory {
             public void run() {
                 SysErrorLog errorLog = LogFactory.createErrorLog(userId, resultCode, clazzName, methodName, path, detail
                 );
-                try {
-                    sysErrorLogService.save(errorLog);
-                } catch (Exception e) {
-                    log.error("创建异常日志异常!", e);
-                }
+                sysErrorLogService.save(errorLog);
+                log.debug(Thread.currentThread().getName());
             }
         };
     }

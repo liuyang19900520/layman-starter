@@ -5,7 +5,7 @@ import com.liuyang19900520.layman.starter.common.logger.database.entity.SysError
 
 /**
  * <p>
- *
+ * 日志工厂
  * </p>
  *
  * @author Max Liu
@@ -13,7 +13,7 @@ import com.liuyang19900520.layman.starter.common.logger.database.entity.SysError
  */
 public class LogFactory {
     /**
-     * 创建操作日志
+     * 创建错误日志
      */
     public static SysErrorLog createErrorLog(Long userId, IResultCode resultCode, String clazzName, String methodName, String path, String detail) {
         SysErrorLog sysErrorLog = new SysErrorLog();
