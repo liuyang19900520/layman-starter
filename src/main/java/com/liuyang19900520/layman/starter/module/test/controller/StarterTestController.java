@@ -42,15 +42,13 @@ public class StarterTestController {
         log.debug("test debug");
 
 
-
-        return null;
+        return CommonResult.success(starterTestService.list());
     }
 
     @GetMapping("/users/{id}")
     @ApiOperation("显示当前用户")
-    public CommonResult<String> user(@PathVariable Long id) {
-        int i = 1 / 0;
-        return CommonResult.success("String");
+    public CommonResult<StarterTest> user(@PathVariable Long id) {
+        return CommonResult.success(starterTestService.getById(id));
     }
 
     @PostMapping("/users/")
