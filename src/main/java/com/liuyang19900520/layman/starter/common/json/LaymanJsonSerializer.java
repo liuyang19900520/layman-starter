@@ -62,7 +62,7 @@ public class LaymanJsonSerializer {
 
     public static class CustomDoubleSerialize extends JsonSerializer<Double> {
 
-        private static CustomDoubleSerialize instance = new CustomDoubleSerialize();
+        private final static CustomDoubleSerialize instance = new CustomDoubleSerialize();
 
         private CustomDoubleSerialize() {
         }
@@ -71,11 +71,11 @@ public class LaymanJsonSerializer {
             return instance;
         }
 
-        private DecimalFormat df = new DecimalFormat("0.00");
+        private final DecimalFormat df = new DecimalFormat("0.00");
 
         @Override
         public void serialize(Double value, JsonGenerator gen, SerializerProvider serializers)
-                throws IOException, JsonProcessingException {
+                throws IOException {
             if (value != null) {
                 gen.writeString(df.format(value));
             }

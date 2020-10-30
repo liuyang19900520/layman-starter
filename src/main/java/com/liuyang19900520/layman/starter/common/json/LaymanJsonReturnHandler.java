@@ -7,7 +7,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
@@ -27,8 +26,8 @@ public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler 
     /**
      * 如果拦截到注解就返回true，进行拦截进行操作
      *
-     * @param returnType
-     * @return
+     * @param returnType 返回类型
+     * @return 是否拦截
      */
     @Override
     public boolean supportsReturnType(MethodParameter returnType) {
@@ -39,14 +38,6 @@ public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler 
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest) throws Exception {
         mavContainer.setRequestHandled(true);
-//        for (int i = 0; i < advices.size(); i++) {
-//            ResponseBodyAdvice<Object> ad = advices.get(i);
-//            if (ad.supports(returnType, null)) {
-//                returnValue = ad.beforeBodyWrite(returnValue, returnType, MediaType.APPLICATION_JSON, null,
-//                        new ServletServerHttpRequest(webRequest.getNativeRequest(HttpServletRequest.class)),
-//                        new ServletServerHttpResponse(webRequest.getNativeResponse(HttpServletResponse.class)));
-//            }
-//        }
         HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
         Annotation[] annos = returnType.getMethodAnnotations();
         LaymanJsonSerializer jsonSerializer = new LaymanJsonSerializer();
@@ -56,9 +47,7 @@ public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler 
                 jsonSerializer.filter(json);
             } else if (a instanceof LaymanJsons) {
                 LaymanJsons jsons = (LaymanJsons) a;
-                Arrays.asList(jsons.value()).forEach(json -> {
-                    jsonSerializer.filter(json);
-                });
+                Arrays.asList(jsons.value()).forEach(jsonSerializer::filter);
             }
         });
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

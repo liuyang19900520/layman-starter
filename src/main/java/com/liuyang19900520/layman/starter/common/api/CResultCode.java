@@ -11,12 +11,15 @@ package com.liuyang19900520.layman.starter.common.api;
 public enum CResultCode implements IResultCode {
 
 
+    /**
+     * 第三方共同错误
+     */
     COMMON_C_ERROR("C0001", "调用第三方服务出错");
 
     private final String code;
     private final String message;
 
-    private CResultCode(String code, String message) {
+    CResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

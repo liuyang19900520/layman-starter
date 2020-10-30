@@ -41,6 +41,7 @@ public class LaymanJacksonJsonFilter extends FilterProvider {
     }
 
     @Override
+    @Deprecated
     public BeanPropertyFilter findFilter(Object filterId) {
         throw new UnsupportedOperationException("Access to deprecated filters not supported");
     }
@@ -69,10 +70,9 @@ public class LaymanJacksonJsonFilter extends FilterProvider {
             return true;
         } else if (filterFields != null && !filterFields.contains(name)) {
             return true;
-        } else if (includeFields == null && filterFields == null) {
-            return true;
+        } else {
+            return includeFields == null && filterFields == null;
         }
-        return false;
     }
 
 }

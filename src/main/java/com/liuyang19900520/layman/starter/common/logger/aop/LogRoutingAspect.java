@@ -51,8 +51,6 @@ public class LogRoutingAspect {
         } else {
             throw new Exception("requestAttributes is null");
         }
-
-
     }
 
     /**
