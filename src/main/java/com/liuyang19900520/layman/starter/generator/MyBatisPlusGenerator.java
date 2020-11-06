@@ -77,7 +77,8 @@ public class MyBatisPlusGenerator {
      * 初始化数据源配置
      */
     private static DataSourceConfig initDataSourceConfig() {
-        Props props = new Props("generator.properties");
+        Props
+                props = new Props("generator.properties");
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig.setUrl(props.getStr("dataSource.url"));
         dataSourceConfig.setDriverName(props.getStr("dataSource.driverName"));

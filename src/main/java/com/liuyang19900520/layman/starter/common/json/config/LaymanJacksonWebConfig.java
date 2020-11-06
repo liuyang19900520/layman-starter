@@ -4,7 +4,7 @@ import com.liuyang19900520.layman.starter.common.json.LaymanJsonReturnHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2020/09/16
  */
 @Configuration
-public class LaymanJacksonWebConfig implements WebMvcConfigurer {
+public class LaymanJacksonWebConfig extends WebMvcConfigurationSupport {
 
     @Autowired
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
