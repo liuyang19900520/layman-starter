@@ -10,6 +10,8 @@ import com.liuyang19900520.layman.starter.common.logger.factory.LogTaskFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,7 +39,13 @@ public class LaymanExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public CommonResult<Object> handleValidException(HttpServletRequest request, MethodArgumentNotValidException e) {
+        return CommonResult.failed(AResultCode.COMMON_400_ERROR, createErrorDetail(request, e));
+    }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
+    public CommonResult<Object> messageNotReadable(HttpServletRequest request, HttpMediaTypeNotSupportedException e) {
         return CommonResult.failed(AResultCode.COMMON_400_ERROR, createErrorDetail(request, e));
     }
 
@@ -73,6 +81,16 @@ public class LaymanExceptionHandler {
     }
 
     /**
+     * 405
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ResponseBody
+    public CommonResult<Object> methodNotAllowedException(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
+        return CommonResult.failed(AResultCode.COMMON_405_ERROR, createErrorDetail(request, e));
+    }
+
+    /**
      * 拦截业务异常
      */
     @ExceptionHandler(BizException.class)
@@ -85,10 +103,10 @@ public class LaymanExceptionHandler {
     /**
      * 拦截未知的运行时异常
      */
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public CommonResult<Object> internalException(HttpServletRequest request, RuntimeException e) {
+    public CommonResult<Object> internalException(HttpServletRequest request, Exception e) {
 
         HashMap<Object, Object> errorDetail = createErrorDetail(request, e);
         LogManager.getInstance().executeLog(LogTaskFactory.exceptionLog(null, BResultCode.COMMON_B_ERROR, (String) errorDetail.get("className"),

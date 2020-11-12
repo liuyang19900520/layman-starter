@@ -1,5 +1,6 @@
 package com.liuyang19900520.layman.starter.common.exception;
 
+import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.IResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,10 @@ public class PermissionException extends RuntimeException {
     private IResultCode resultCode;
 
     private String message;
+
+    public PermissionException(String message) {
+        this.resultCode = AResultCode.COMMON_403_ERROR;
+        this.message = message;
+    }
 
 }

@@ -2,6 +2,9 @@ package com.liuyang19900520.layman.starter.module.ums.dao;
 
 import com.liuyang19900520.layman.starter.module.ums.entity.UmsAdmin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
 
+    /**
+     * 获取资源相关用户ID列表
+     *
+     * @param resourceId
+     * @return
+     */
+    List<Long> getAdminIdList(@Param("resourceId") Long resourceId);
 }

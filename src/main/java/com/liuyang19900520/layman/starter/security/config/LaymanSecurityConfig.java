@@ -3,10 +3,12 @@ package com.liuyang19900520.layman.starter.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -23,12 +26,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author Max Liu
  * @since 2020/11/05
  */
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired(required = false)
 //    private DynamicSecurityService dynamicSecurityService;
 
     @Autowired(required = false)
     IgnoreUrlsConfig ignoreUrlsConfig;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -52,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                // 自定义权限拒绝处理类
+        // 自定义权限拒绝处理类
 //                .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(restfulAccessDeniedHandler())
@@ -66,12 +73,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        }
     }
 
+    /**
+     * 用户认证
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
 
+    /**
+     * 密码加密器
+     *
+     * @return PasswordEncoder 密码加密
+     */
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

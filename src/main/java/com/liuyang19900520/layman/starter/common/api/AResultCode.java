@@ -17,19 +17,23 @@ public enum AResultCode implements IResultCode {
     /**
      * 客户端共同错误400
      */
-    COMMON_400_ERROR("A0002", "参数不正确"),
+    COMMON_400_ERROR("A0002", "400--参数不正确"),
     /**
      * 客户端共同错误401
      */
-    COMMON_401_ERROR("A0003", "未授权"),
+    COMMON_401_ERROR("A0003", "401--未授权"),
     /**
      * 客户端共同错误403
      */
-    COMMON_403_ERROR("A0004", "没有权限"),
+    COMMON_403_ERROR("A0004", "403--没有权限"),
     /**
      * 客户端共同错误404
      */
-    COMMON_404_ERROR("A0005", "未找到资源");
+    COMMON_404_ERROR("A0005", "404--未找到资源"),
+    /**
+     * 客户端共同错误404
+     */
+    COMMON_405_ERROR("A0006", "405--请求方法不正确");
 
     private final String code;
     private final String message;

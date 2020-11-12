@@ -50,6 +50,7 @@ public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler 
                 Arrays.asList(jsons.value()).forEach(jsonSerializer::filter);
             }
         });
+        assert response != null;
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf8");
         String json = jsonSerializer.toJson(returnValue);
