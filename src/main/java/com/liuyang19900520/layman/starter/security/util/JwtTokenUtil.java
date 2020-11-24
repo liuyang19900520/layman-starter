@@ -1,6 +1,7 @@
 package com.liuyang19900520.layman.starter.security.util;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +24,6 @@ import java.util.Map;
  * @since 2020/11/01
  */
 @Slf4j
-@Component
 public class JwtTokenUtil {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
@@ -113,7 +113,7 @@ public class JwtTokenUtil {
      * 根据用户信息生成token
      */
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = MapUtil.newHashMap();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);

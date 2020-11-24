@@ -21,6 +21,7 @@ import com.liuyang19900520.layman.starter.module.ums.service.UmsAdminService;
 import com.liuyang19900520.layman.starter.security.domain.AdminUserDetails;
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -60,23 +61,24 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     UmsAdminCacheService adminCacheService;
 
 
+
     @Override
     public UmsAdmin register(UmsAdminParam umsAdminParam) {
         UmsAdmin umsAdmin = new UmsAdmin();
-//        BeanUtils.copyProperties(umsAdminParam, umsAdmin);
-//        umsAdmin.setCreateTime(new Date());
-//        umsAdmin.setStatus(1);
-//        //查询是否有相同用户名的用户
-//        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<>();
-//        wrapper.lambda().eq(UmsAdmin::getUsername, umsAdmin.getUsername());
-//        List<UmsAdmin> umsAdminList = list(wrapper);
-//        if (umsAdminList.size() > 0) {
-//            return null;
-//        }
-//        //将密码进行加密操作
-//        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
-//        umsAdmin.setPassword(encodePassword);
-//        baseMapper.insert(umsAdmin);
+        BeanUtils.copyProperties(umsAdminParam, umsAdmin);
+        umsAdmin.setCreateTime(new Date());
+        umsAdmin.setStatus(1);
+        //查询是否有相同用户名的用户
+        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UmsAdmin::getUsername, umsAdmin.getUsername());
+        List<UmsAdmin> umsAdminList = list(wrapper);
+        if (umsAdminList.size() > 0) {
+            return null;
+        }
+        //将密码进行加密操作
+        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
+        umsAdmin.setPassword(encodePassword);
+        baseMapper.insert(umsAdmin);
         return umsAdmin;
     }
 

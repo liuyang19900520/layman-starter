@@ -1,22 +1,19 @@
 package com.liuyang19900520.layman.starter.security.config;
 
+import com.liuyang19900520.layman.starter.security.filter.JwtAuthenticationTokenFilter;
+import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -36,6 +33,10 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -58,16 +59,16 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // 自定义权限拒绝处理类
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // 自定义权限拒绝处理类
 //                .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(restfulAccessDeniedHandler())
 //                .authenticationEntryPoint(restAuthenticationEntryPoint())
-//                // 自定义权限拦截器JWT过滤器
-//                .and()
-//                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//        //有动态权限配置时添加动态权限校验过滤器
+                // 自定义权限拦截器JWT过滤器
+                .and()
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        //有动态权限配置时添加动态权限校验过滤器
 //        if (dynamicSecurityService != null) {
 //            registry.and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
 //        }
@@ -96,10 +97,12 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //    @Bean
+//    @Lazy
 //    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
 //        return new JwtAuthenticationTokenFilter();
 //    }
-//
+
+    //
 //    @Bean
 //    @Override
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -117,10 +120,10 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 //
 //
-//    @Bean
-//    public JwtTokenUtil jwtTokenUtil() {
-//        return new JwtTokenUtil();
-//    }
+    @Bean
+    public JwtTokenUtil jwtTokenUtil() {
+        return new JwtTokenUtil();
+    }
 //
 //    @ConditionalOnBean(name = "dynamicSecurityService")
 //    @Bean

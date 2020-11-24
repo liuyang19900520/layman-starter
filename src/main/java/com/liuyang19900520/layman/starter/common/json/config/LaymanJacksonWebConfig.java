@@ -31,12 +31,12 @@ public class LaymanJacksonWebConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        handlers.add(getJsonReturnHandler());
+        handlers.add(returnValueHandler);
     }
 
-    public HandlerMethodReturnValueHandler getJsonReturnHandler() {
-        return new LaymanJsonReturnHandler();
-    }
+//    public HandlerMethodReturnValueHandler getJsonReturnHandler() {
+//        return new LaymanJsonReturnHandler();
+//    }
 
     @PostConstruct
     public void init() {
@@ -44,7 +44,7 @@ public class LaymanJacksonWebConfig extends WebMvcConfigurationSupport {
         final List<HandlerMethodReturnValueHandler> originalHandlers = requestMappingHandlerAdapter.getReturnValueHandlers();
         if (null != originalHandlers) {
             newHandlers.addAll(originalHandlers);
-            // 获取处理器应处于的位置，需要在RequestResponseBodyMethodProcessor之前
+//             获取处理器应处于的位置，需要在RequestResponseBodyMethodProcessor之前
             final int index = obtainValueHandlerPosition(originalHandlers, RequestResponseBodyMethodProcessor.class);
             newHandlers.add(index, returnValueHandler);
         } else {
