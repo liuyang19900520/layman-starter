@@ -5,6 +5,7 @@ import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.CommonResult;
 import com.liuyang19900520.layman.starter.common.exception.AuthException;
 import com.liuyang19900520.layman.starter.common.exception.BizException;
+import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJson;
 import com.liuyang19900520.layman.starter.module.ums.dto.UmsAdminLoginParam;
 import com.liuyang19900520.layman.starter.module.ums.dto.UmsAdminParam;
 import com.liuyang19900520.layman.starter.module.ums.entity.UmsAdmin;
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.liuyang19900520.layman.starter.common.api.AResultCode.COMMON_400_ERROR;
@@ -65,6 +67,14 @@ public class UmsAdminController {
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "用户注册")
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @LaymanJson(type = UmsAdmin.class, include = "id,username")
+    public CommonResult<List<UmsAdmin>> list() {
+        List<UmsAdmin> list = adminService.list();
+        return CommonResult.success(list);
     }
 
 }

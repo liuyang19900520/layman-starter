@@ -5,7 +5,6 @@ import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJson;
 import com.liuyang19900520.layman.starter.common.json.annotation.LaymanJsons;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 /**
  * @author Max Liu
  */
-@Component
 public class LaymanJsonReturnHandler implements HandlerMethodReturnValueHandler {
 
 //    List<ResponseBodyAdvice<Object>> advices = new ArrayList<>();

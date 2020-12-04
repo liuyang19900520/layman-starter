@@ -4,7 +4,6 @@ import com.liuyang19900520.layman.starter.security.filter.JwtAuthenticationToken
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author Max Liu
  * @since 2020/11/05
  */
-
 public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired(required = false)
 //    private DynamicSecurityService dynamicSecurityService;
@@ -36,7 +34,6 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -74,6 +71,11 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 //        }
     }
 
+    @Bean
+    public IgnoreUrlsConfig ignoreUrlsConfig() {
+        return new IgnoreUrlsConfig();
+    }
+
     /**
      * 用户认证
      *
@@ -96,11 +98,16 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    @Lazy
-//    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-//        return new JwtAuthenticationTokenFilter();
-//    }
+    /**
+     * token 过滤器
+     *
+     * @return jwtAuthenticationTokenFilter 过滤器
+     */
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
+    }
+
 
     //
 //    @Bean
@@ -120,6 +127,12 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 //
 //
+
+    /**
+     * jwtTokenUtil token工具类
+     *
+     * @return jwtTokenUtil 过滤器
+     */
     @Bean
     public JwtTokenUtil jwtTokenUtil() {
         return new JwtTokenUtil();
