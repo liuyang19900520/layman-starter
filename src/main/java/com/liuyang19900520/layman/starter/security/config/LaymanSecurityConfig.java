@@ -78,12 +78,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 用户认证
-     *
-     * @param auth
-     * @throws Exception
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder);
     }
@@ -98,18 +95,7 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * token 过滤器
-     *
-     * @return jwtAuthenticationTokenFilter 过滤器
-     */
-    @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
-    }
 
-
-    //
 //    @Bean
 //    @Override
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
