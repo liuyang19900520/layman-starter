@@ -4,6 +4,9 @@ import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.IResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.apache.ibatis.annotations.ConstructorArgs;
 import org.springframework.security.core.AuthenticationException;
 
 /**
@@ -14,7 +17,7 @@ import org.springframework.security.core.AuthenticationException;
  * @author Max Liu
  * @since 2020/10/07
  */
-@Data
+@Getter
 public class AuthException extends AuthenticationException {
     private static final long serialVersionUID = 1L;
 

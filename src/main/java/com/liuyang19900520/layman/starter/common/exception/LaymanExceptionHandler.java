@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 
 /**
@@ -30,7 +31,7 @@ import java.util.HashMap;
  * @author Max Liu
  * @since 2020/10/05
  */
-@ControllerAdvice
+//@ControllerAdvice
 @Order(-100)
 @Slf4j
 public class LaymanExceptionHandler {
@@ -56,14 +57,13 @@ public class LaymanExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public CommonResult<Object> unAuth(HttpServletRequest request, AuthException e) {
-
         return CommonResult.failed(AResultCode.COMMON_401_ERROR, createErrorDetail(request, e));
     }
 
     /**
      * 认证异常--没有访问权限
      */
-    @ExceptionHandler(PermissionException.class)
+    @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public CommonResult<Object> permissionException(HttpServletRequest request, PermissionException e) {

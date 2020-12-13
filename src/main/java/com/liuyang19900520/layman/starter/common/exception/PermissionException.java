@@ -2,8 +2,8 @@ package com.liuyang19900520.layman.starter.common.exception;
 
 import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.IResultCode;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import org.springframework.security.access.AccessDeniedException;
 
 /**
  * <p>
@@ -13,9 +13,8 @@ import lombok.Data;
  * @author Max Liu
  * @since 2020/10/07
  */
-@Data
-@AllArgsConstructor
-public class PermissionException extends RuntimeException {
+@Getter
+public class PermissionException extends AccessDeniedException {
     private static final long serialVersionUID = 1L;
 
     private IResultCode resultCode;
@@ -23,8 +22,8 @@ public class PermissionException extends RuntimeException {
     private String message;
 
     public PermissionException(String message) {
-        this.resultCode = AResultCode.COMMON_403_ERROR;
+        super(message);
+        this.resultCode = AResultCode.COMMON_401_ERROR;
         this.message = message;
     }
-
 }

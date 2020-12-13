@@ -22,14 +22,14 @@ import java.util.List;
  * @since 2020/09/16
  */
 
-@Configuration
+//@Configuration
 public class LaymanJacksonWebConfig extends WebMvcConfigurationSupport {
 
     @Autowired
     public RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     @Autowired
-    private LaymanJsonReturnHandler returnValueHandler;
+    LaymanJsonReturnHandler returnValueHandler;
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {

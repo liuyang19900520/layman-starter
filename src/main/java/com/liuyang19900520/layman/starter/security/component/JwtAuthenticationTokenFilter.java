@@ -1,4 +1,4 @@
-package com.liuyang19900520.layman.starter.security.filter;
+package com.liuyang19900520.layman.starter.security.component;
 
 
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;

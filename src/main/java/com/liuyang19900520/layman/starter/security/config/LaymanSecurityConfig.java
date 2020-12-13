@@ -1,6 +1,7 @@
 package com.liuyang19900520.layman.starter.security.config;
 
-import com.liuyang19900520.layman.starter.security.filter.JwtAuthenticationTokenFilter;
+import com.liuyang19900520.layman.starter.security.component.JwtAuthenticationTokenFilter;
+import com.liuyang19900520.layman.starter.security.component.RestfulAccessDeniedHandler;
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
+    @Autowired
+    RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
@@ -58,9 +62,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // 自定义权限拒绝处理类
-//                .and()
-//                .exceptionHandling()
-//                .accessDeniedHandler(restfulAccessDeniedHandler())
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(restfulAccessDeniedHandler)
 //                .authenticationEntryPoint(restAuthenticationEntryPoint())
                 // 自定义权限拦截器JWT过滤器
                 .and()
@@ -96,16 +100,16 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    @Bean
+    //    @Bean
 //    @Override
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
 //        return super.authenticationManagerBean();
 //    }
 //
-//    @Bean
-//    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
-//        return new RestfulAccessDeniedHandler();
-//    }
+    @Bean
+    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
+        return new RestfulAccessDeniedHandler();
+    }
 //
 //    @Bean
 //    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {

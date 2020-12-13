@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Redis配置类
- * Created by macro on 2020/3/2.
+ *
+ * @author macro
+ * @date 2020/3/2
  */
 @EnableCaching
 @Configuration
