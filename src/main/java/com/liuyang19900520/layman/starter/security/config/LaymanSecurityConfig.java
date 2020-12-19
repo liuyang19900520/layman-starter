@@ -1,6 +1,7 @@
 package com.liuyang19900520.layman.starter.security.config;
 
 import com.liuyang19900520.layman.starter.security.component.JwtAuthenticationTokenFilter;
+import com.liuyang19900520.layman.starter.security.component.RestAuthenticationEntryPoint;
 import com.liuyang19900520.layman.starter.security.component.RestfulAccessDeniedHandler;
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
+    @Autowired
+    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
@@ -65,7 +69,7 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(restfulAccessDeniedHandler)
-//                .authenticationEntryPoint(restAuthenticationEntryPoint())
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 // 自定义权限拦截器JWT过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -110,13 +114,12 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
         return new RestfulAccessDeniedHandler();
     }
-//
-//    @Bean
-//    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
-//        return new RestAuthenticationEntryPoint();
-//    }
-//
-//
+
+    @Bean
+    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint();
+    }
+
 
     /**
      * jwtTokenUtil token工具类

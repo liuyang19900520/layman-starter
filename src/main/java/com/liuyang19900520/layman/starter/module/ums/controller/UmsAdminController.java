@@ -1,7 +1,6 @@
 package com.liuyang19900520.layman.starter.module.ums.controller;
 
 
-import com.liuyang19900520.layman.starter.common.api.AResultCode;
 import com.liuyang19900520.layman.starter.common.api.CommonResult;
 import com.liuyang19900520.layman.starter.common.exception.AuthException;
 import com.liuyang19900520.layman.starter.common.exception.BizException;
@@ -13,9 +12,6 @@ import com.liuyang19900520.layman.starter.module.ums.service.UmsAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
