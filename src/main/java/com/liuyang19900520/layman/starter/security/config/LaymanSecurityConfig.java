@@ -1,12 +1,12 @@
 package com.liuyang19900520.layman.starter.security.config;
 
-import com.liuyang19900520.layman.starter.security.component.JwtAuthenticationTokenFilter;
-import com.liuyang19900520.layman.starter.security.component.RestAuthenticationEntryPoint;
-import com.liuyang19900520.layman.starter.security.component.RestfulAccessDeniedHandler;
+import com.liuyang19900520.layman.starter.security.component.*;
 import com.liuyang19900520.layman.starter.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -25,8 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @since 2020/11/05
  */
 public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired(required = false)
-//    private DynamicSecurityService dynamicSecurityService;
+
+    @Autowired(required = false)
+    private DynamicSecurityService dynamicSecurityService;
 
     @Autowired(required = false)
     IgnoreUrlsConfig ignoreUrlsConfig;
@@ -36,6 +38,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired(required = false)
+    DynamicSecurityFilter dynamicSecurityFilter;
 
     @Autowired
     RestfulAccessDeniedHandler restfulAccessDeniedHandler;
@@ -74,9 +79,9 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //有动态权限配置时添加动态权限校验过滤器
-//        if (dynamicSecurityService != null) {
-//            registry.and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
-//        }
+        if (dynamicSecurityService != null) {
+            registry.and().addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class);
+        }
     }
 
     @Bean
@@ -104,12 +109,12 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-//
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Bean
     public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
         return new RestfulAccessDeniedHandler();
@@ -130,23 +135,16 @@ public class LaymanSecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtTokenUtil jwtTokenUtil() {
         return new JwtTokenUtil();
     }
-//
-//    @ConditionalOnBean(name = "dynamicSecurityService")
-//    @Bean
-//    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
-//        return new DynamicAccessDecisionManager();
-//    }
-//
-//
-//    @ConditionalOnBean(name = "dynamicSecurityService")
-//    @Bean
-//    public DynamicSecurityFilter dynamicSecurityFilter() {
-//        return new DynamicSecurityFilter();
-//    }
-//
-//    @ConditionalOnBean(name = "dynamicSecurityService")
-//    @Bean
-//    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
-//        return new DynamicSecurityMetadataSource();
-//    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
+        return new DynamicAccessDecisionManager();
+    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
+        return new DynamicSecurityMetadataSource();
+    }
 }

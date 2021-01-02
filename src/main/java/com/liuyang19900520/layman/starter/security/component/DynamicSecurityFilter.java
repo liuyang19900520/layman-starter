@@ -3,11 +3,13 @@ package com.liuyang19900520.layman.starter.security.component;
 
 import com.liuyang19900520.layman.starter.security.config.IgnoreUrlsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -21,12 +23,16 @@ import java.io.IOException;
  * @author macro
  * @date 2020/2/7
  */
+@Component
+@ConditionalOnBean(name = "dynamicSecurityService")
 public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
 
     @Autowired
-    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+    DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+
     @Autowired
-    private IgnoreUrlsConfig ignoreUrlsConfig;
+    IgnoreUrlsConfig ignoreUrlsConfig;
+
 
     @Autowired
     public void setMyAccessDecisionManager(DynamicAccessDecisionManager dynamicAccessDecisionManager) {

@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class AdminUserDetails implements UserDetails {
-    private UmsAdmin umsAdmin;
-    private List<UmsResource> resourceList;
+    private final UmsAdmin umsAdmin;
+    private final List<UmsResource> resourceList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
